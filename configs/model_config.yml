@@ -1,0 +1,30 @@
+model:
+  name: "cross-encoder/ms-marco-MiniLM-L-12-v2"
+  type: "cross encoder"
+
+data:
+  uri : "alvations/esci-data-task1"
+
+hyperparameters:
+  num_epochs: 3
+  num_labels : 1
+  max_length : 512
+  batch_size: 64
+  learning_rate : 7e-6
+  warmup_ratio : 0.1
+  optimizer: "AdamW"
+  loss_function: "MSE"
+
+training_blocks:
+  - block_name: "encoder"
+    training: TRUE
+  - block_name: "pooler"
+    training: TRUE
+  - block_name: "classifier"
+    training: TRUE
+
+artifacts_path:
+  output_dir: "esci-artifacts/final_fine_tuned_model"
+  checkpoints_dir: "esci-artifacts/checkpoints/"
+  logging_dir: "esci-artifacts/logs/"
+  tensor_board_dir : "esci-artifacts/fine_tuning_experiment"
